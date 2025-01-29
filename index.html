@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Converter</title>
+    <script>
+        function validateFile() {
+            const fileInput = document.getElementById("file");
+            const conversionType = document.getElementById("conversion_type").value;
+            const fileName = fileInput.value;
+            const fileExt = fileName.split(".").pop().toLowerCase();
+            
+            if (conversionType === "xml_to_excel" && fileExt !== "pymat") {
+                alert("Please select a .pymat file for XML to Excel conversion.");
+                fileInput.value = "";
+                return false;
+            } 
+            if (conversionType === "excel_to_xml" && fileExt !== "xlsx") {
+                alert("Please select a .xlsx file for Excel to XML conversion.");
+                fileInput.value = "";
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>File Converter</h1>
+    <form method="POST" enctype="multipart/form-data" onsubmit="return validateFile()">
+        <label for="file">Upload File:</label>
+        <input type="file" name="file" id="file" required>
+        <br><br>
+        <label for="conversion_type">Select Conversion Type:</label>
+        <select name="conversion_type" id="conversion_type" required>
+            <option value="xml_to_excel">XML to Excel</option>
+            <option value="excel_to_xml">Excel to XML</option>
+        </select>
+        <br><br>
+        <button type="submit">Convert</button>
+    </form>
+</body>
+</html>
